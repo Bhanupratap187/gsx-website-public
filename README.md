@@ -110,7 +110,9 @@ public/               Static assets
 
 ## Deployment
 
-The build is host-agnostic by design: `output: "standalone"` with no Vercel-only features (no ISR, no edge middleware, no platform-specific image loader or analytics). The same artifact runs on Vercel, DigitalOcean App Platform, or any container host.
+The build is host-agnostic by design: no Vercel-only features (no ISR, no edge middleware, no platform-specific image loader or analytics). The same source runs on Vercel, DigitalOcean App Platform, or any container host.
+
+`output: "standalone"` is set for container hosts but disabled when `VERCEL` is present — Vercel's builder produces its own server output and fails on the standalone layout.
 
 ```bash
 pnpm build

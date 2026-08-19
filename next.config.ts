@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  // Vercel's builder produces its own server output and fails on the
+  // standalone layout; DigitalOcean and Docker still need it (PLAN §10).
+  output: process.env.VERCEL ? undefined : "standalone",
 
   // The harness is excluded at the routing layer rather than by a render-time
   // guard, so the page carries no dead branch and is never served in prod.
