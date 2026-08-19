@@ -1,0 +1,357 @@
+@import "tailwindcss";
+
+@theme {
+  /* Every value here is transcribed from the live site
+     (gymsciencx-corporate.jon779980.chatgpt.site/assets/index-OPlHvBMt.css).
+     This block is the only place raw design values may appear. */
+
+  /* Grounds — live --canvas / --surface / --paper */
+  --color-sand: #f5f3ef;
+  --color-sand-2: #ebe9e4;
+  --color-sand-3: #e4e1da;
+  --color-surface: #f7f6f3;
+
+  /* Ink — page text through to the darkest device bezel */
+  --color-ink: #090909;
+  --color-ink-soft: #575757;
+  --color-ink-bezel: #070707;
+  --color-ink-tile: #121212;
+  --color-ink-bezel-2: #161616;
+  --color-ink-line: #202020;
+  --color-ink-line-2: #2a2a2a;
+  --color-ink-line-3: #363636;
+
+  /* Accent. --color-blue is for fills and graphics only; text on a light ground
+     must use --color-blue-ink — #1db5f5 is 2.11:1 on the canvas and fails AA. */
+  --color-blue: #1db5f5;
+  --color-blue-ink: #0f77a3;
+  --color-blue-50: #f2fbfe;
+  --color-blue-100: #e6f7fe;
+  --color-blue-150: #e0f5fd;
+  --color-blue-200: #d8f1fd;
+  --color-blue-300: #c4eafc;
+  --color-blue-400: #86d6f9;
+  --color-blue-ring: #d8edf6;
+  --color-blue-select: #c9ecfd;
+  --color-blue-muted: #8fd3f2;
+  --color-blue-muted-ink: #4e7f95;
+  --color-on-blue-muted: #153f4d;
+  --color-on-blue-subtle: #063b51;
+  --color-blue-halo: #b4e4f9;
+  --color-blue-halo-soft: #d3edf8;
+  --color-blue-bar: #d8edf6;
+  --color-orbit: rgb(29 181 245 / 0.35);
+  --color-glow: rgb(29 181 245 / 0.18);
+  --color-scrim: rgb(0 0 0 / 0.72);
+  --color-scrim-strong: rgb(0 0 0 / 0.8);
+  --color-disc-top: rgb(255 255 255 / 0.72);
+  --color-disc-bottom: rgb(230 247 254 / 0.5);
+  --color-glass: rgb(255 255 255 / 0.94);
+  --color-cta-face: rgb(255 255 255 / 0.68);
+  --color-cta-edge: rgb(9 9 9 / 0.22);
+  --color-glass-edge: rgb(9 9 9 / 0.14);
+  --color-blue-bar-soft: #cbe6f3;
+
+  /* Rules and borders */
+  --color-line: #d8d8d8;
+  --color-line-soft: #e2e2e2;
+  --color-line-card: #dcdcdc;
+  --color-line-ghost: #e8e8e8;
+  --color-line-grid: #d8d8d8;
+  --color-line-grid-2: #d0d0d0;
+  --color-line-tile: #e0e0e0;
+  --color-line-strong: #c7c7c7;
+  --color-line-tag: #cfcfcf;
+  --color-fill-inactive: #efeeea;
+
+  /* Text */
+  --color-muted: #575757;
+  --color-muted-2: #6a6a6a;
+  --color-muted-3: #7c7c7c;
+  --color-muted-4: #949494;
+  --color-muted-dark: #a8a8a8;
+  --color-muted-dark-2: #c9c9c9;
+  --color-muted-dark-3: #dadada;
+
+  /* Status */
+  --color-success: #1e8a52;
+  --color-success-bg: #dff3e6;
+  --color-success-ink: #146138;
+  --color-success-soft: #3a6b4e;
+  --color-success-text: #1e7a4a;
+  --color-warn: #b77a18;
+  --color-warn-bg: #fdf1da;
+  --color-warn-ink: #8a5e12;
+  --color-warn-dot: #f5b743;
+  --color-danger: #ef292c;
+
+  /* Brand chips inside the phone mockups */
+  --color-brand-alo: #e6e2f7;
+  --color-brand-alo-ink: #4a4a6a;
+  --color-brand-glow: #f9e3da;
+  --color-brand-glow-ink: #7a4a38;
+  --color-brand-pura: #e4efc9;
+  --color-brand-pura-ink: #4a5a28;
+
+  /* Display type. Sizes, leading and tracking all come from the live
+     stylesheet — it tracks far tighter than the original prototype. */
+  --text-display: clamp(58px, 6.25vw, 104px);
+  --text-display--line-height: 0.91;
+  --text-display--letter-spacing: -0.074em;
+  --text-h2: clamp(44px, 5.1vw, 84px);
+  --text-h2--line-height: 0.98;
+  --text-h2--letter-spacing: -0.062em;
+  --text-h2-sm: clamp(34px, 3.7vw, 61px);
+  --text-h2-sm--line-height: 1;
+  --text-h2-sm--letter-spacing: -0.05em;
+  --text-h3: clamp(30px, 3vw, 50px);
+  --text-h3--line-height: 1.04;
+  --text-h3--letter-spacing: -0.04em;
+  --text-h4: clamp(24px, 2.2vw, 36px);
+  --text-h4--line-height: 1.04;
+  --text-h4--letter-spacing: -0.045em;
+  --text-lede: clamp(17px, 1.45vw, 24px);
+  --text-lede--line-height: 1.58;
+  --text-panel: clamp(22px, 2.15vw, 36px);
+  --text-panel--line-height: 1.06;
+  --text-panel--letter-spacing: -0.045em;
+
+  /* Body scale — the live system runs denser than the prototype did */
+  --text-2xs: 9px;
+  --text-xs: 10px;
+  --text-sm: 12px;
+  --text-base: 14px;
+  --text-md: 16px;
+  --text-lg: 19px;
+  --text-xl: 22px;
+  --text-kicker: 11px;
+  --text-fine: 11px;
+
+  /* Rhythm */
+  --spacing-gutter: 22px;
+  --spacing-shell: 72px;
+  --spacing-section: clamp(72px, 8vw, 132px);
+  --spacing-block: clamp(36px, 4vw, 60px);
+  --spacing-block-lg: clamp(40px, 5vw, 72px);
+  --spacing-card: clamp(22px, 2vw, 27px);
+  --spacing-card-lg: clamp(24px, 2.4vw, 32px);
+  --container-site: 1600px;
+
+  /* The three points the layout reflows at. Named because they are ours, not
+     Tailwind's scale — sm/md/lg/xl keep their defaults for component-level work. */
+  --breakpoint-xs: 480px;
+  --breakpoint-tablet: 681px;
+  --breakpoint-laptop: 941px;
+  --breakpoint-desktop: 1181px;
+
+  --radius-pill: 999px;
+  --radius-card: 17px;
+  --radius-tile: 10px;
+  --radius-chip: 9px;
+
+  --shadow-card: 0 14px 40px rgb(9 9 9 / 0.08);
+  --shadow-float: 0 18px 40px rgb(9 9 9 / 0.08);
+  --shadow-hero: 0 25px 70px rgb(9 9 9 / 0.15);
+  --shadow-phone: 0 20px 40px rgb(9 9 9 / 0.22);
+  --shadow-phone-lg: 0 12px 32px rgb(0 0 0 / 0.28);
+  --shadow-cta: 0 16px 34px rgb(9 9 9 / 0.16);
+  --shadow-cta-hover: 0 20px 40px rgb(9 9 9 / 0.22);
+  --shadow-disc: inset 0 0 80px rgb(29 181 245 / 0.12);
+  --shadow-play: 0 12px 32px rgb(0 0 0 / 0.28);
+  --shadow-dot: 0 0 0 4px rgb(29 181 245 / 0.15);
+}
+
+/* Role layer. Components reference these, never the raw palette above, so a
+   section's tone resolves its children automatically. Adding a dark theme
+   later means overriding these ~10 values, not touching components. */
+@layer base {
+  :root,
+  [data-tone="light"] {
+    --ground: var(--color-sand);
+    --raised: #fff;
+    --content: var(--color-ink);
+    --content-muted: var(--color-muted);
+    --content-subtle: var(--color-muted-2);
+    --rule: var(--color-line);
+    --rule-grid: var(--color-line-grid);
+    --accent-text: var(--color-blue-ink);
+  }
+
+  [data-tone="light-2"] {
+    --ground: var(--color-sand-2);
+    --rule-grid: var(--color-line-grid-2);
+  }
+
+  [data-tone="dark"],
+  [data-tone-hover="dark"]:hover {
+    --ground: var(--color-ink-bezel);
+    --raised: var(--color-ink-tile);
+    --content: #fff;
+    --content-muted: var(--color-muted-dark);
+    --content-subtle: var(--color-muted-4);
+    --rule: var(--color-ink-line);
+    --rule-grid: var(--color-ink-line);
+    /* #1db5f5 measures 8.5:1 on ink, so the bright accent is safe for text here */
+    --accent-text: var(--color-blue);
+  }
+
+  [data-tone="blue"] {
+    --ground: var(--color-blue);
+    --raised: var(--color-ink);
+    --content: var(--color-ink);
+    --content-muted: var(--color-on-blue-muted);
+    --content-subtle: var(--color-on-blue-subtle);
+    --rule: rgb(9 9 9 / 0.16);
+    --rule-grid: rgb(9 9 9 / 0.16);
+    --accent-text: var(--color-ink);
+  }
+}
+
+@theme inline {
+  --font-sans: var(--font-geist), Arial, Helvetica, sans-serif;
+
+  --color-ground: var(--ground);
+  --color-raised: var(--raised);
+  --color-content: var(--content);
+  --color-content-muted: var(--content-muted);
+  --color-content-subtle: var(--content-subtle);
+  --color-rule: var(--rule);
+  --color-rule-grid: var(--rule-grid);
+  --color-accent-text: var(--accent-text);
+}
+
+@layer base {
+  body {
+    background:
+      radial-gradient(
+        circle at 8% 2%,
+        rgb(29 181 245 / 0.18),
+        transparent 24rem
+      ),
+      linear-gradient(
+        180deg,
+        #fbfaf7 0%,
+        var(--color-sand) 58%,
+        var(--color-sand-2) 100%
+      );
+    color: var(--content);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-blue-select);
+  }
+
+  /* Header height drives anchor offset; overridden per breakpoint by the header */
+  :root {
+    --header-h: 78px;
+  }
+
+  /* The live shell margin only widens once there is room for it */
+  :root {
+    --spacing-shell: 28px;
+  }
+
+  @media (min-width: 48rem) {
+    :root {
+      --spacing-shell: 72px;
+    }
+  }
+
+  /* The live site steps display size and lede at 680 and 1180 rather than
+     running one clamp across the whole range — a single clamp reads far too
+     small on tablet and phone. Breakpoints are the live site's, not Tailwind's. */
+  :root {
+    --text-display: clamp(50px, 15vw, 70px);
+    --text-lede: 16px;
+  }
+
+  @media (min-width: 681px) {
+    :root {
+      --text-display: clamp(56px, 7vw, 82px);
+      --text-lede: clamp(17px, 1.45vw, 24px);
+    }
+  }
+
+  @media (min-width: 1181px) {
+    :root {
+      --text-display: clamp(58px, 6.25vw, 104px);
+    }
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  [id] {
+    scroll-margin-top: calc(var(--header-h) + 24px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* accent-color gives no control over thumb size, so the track and thumb are
+     drawn explicitly with a 44px hit area (PLAN §6.13). */
+  .range-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 44px;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .range-slider::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: var(--radius-pill);
+    background: var(--color-ink-line);
+  }
+
+  .range-slider::-moz-range-track {
+    height: 6px;
+    border-radius: var(--radius-pill);
+    background: var(--color-ink-line);
+  }
+
+  .range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 26px;
+    height: 26px;
+    margin-top: -10px;
+    border: none;
+    border-radius: var(--radius-pill);
+    background: var(--color-blue);
+  }
+
+  .range-slider::-moz-range-thumb {
+    width: 26px;
+    height: 26px;
+    border: none;
+    border-radius: var(--radius-pill);
+    background: var(--color-blue);
+  }
+
+  .range-slider:focus-visible::-webkit-slider-thumb {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+}
