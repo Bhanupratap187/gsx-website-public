@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ACTIVATE } from "@/content/privacy";
-import { ACTIVATE_MAILTO } from "@/content/site";
+import { ACTIVATE_CTA } from "@/content/site";
 
 // A rounded panel inset in the page rather than a full-bleed band, with two
 // oversized arcs bleeding out of its corners — the live `.activate-section`.
@@ -35,7 +35,7 @@ export function Activate() {
             {ACTIVATE.lede}
           </p>
           <div className="max-tablet:flex-col max-tablet:items-stretch mt-[34px] flex items-center justify-center gap-3">
-            <Button href={ACTIVATE_MAILTO} className="justify-center gap-8">
+            <Button href={ACTIVATE_CTA.href} className="justify-center gap-8">
               {ACTIVATE.primaryLabel}
               <ArrowRight aria-hidden="true" className="text-blue size-4" />
             </Button>

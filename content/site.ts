@@ -21,8 +21,6 @@ export const ACTIVATE_CTA = {
   href: SITE.appUrl,
 } as const;
 
-export const ACTIVATE_MAILTO = `mailto:${SITE.email}?subject=Activate%20GSX`;
-
 // Member App and Trainer OS were separate prototype pages; both now resolve to
 // the in-page interactive sections.
 export const NAV = [
