@@ -19,9 +19,9 @@ interface PhoneFrameProps {
 // The screen takes an iPhone's 393x852 ratio rather than a viewport-height
 // clamp, which stretched the device to 1:2.5 on tall windows.
 //
-// The ratio and the inner scroll only apply from lg, where the phone sits in
-// its own column. Below that it spans the content width, so a scroller there
-// swallows the page scroll and the reader is stuck inside the mockup.
+// The ratio holds at every width so the device never resizes with its content.
+// Overscroll chaining stays on, so reaching the end of a screen resumes the
+// page rather than trapping the reader inside the mockup.
 export function PhoneFrame({
   children,
   screen = "white",
@@ -41,7 +41,7 @@ export function PhoneFrame({
     >
       <div
         className={cn(
-          "text-ink flex min-h-[600px] flex-col overflow-hidden rounded-[clamp(24px,7vw,38px)] lg:aspect-[393/852] lg:min-h-0",
+          "text-ink flex aspect-[393/852] flex-col overflow-hidden rounded-[clamp(24px,7vw,38px)]",
           screen === "white" ? "bg-white" : "bg-sand",
         )}
       >
@@ -70,9 +70,8 @@ export function PhoneFrame({
           ) : null}
         </div>
 
-        {/* Scrolls like a real device from lg, so a long screen never resizes the
-            frame. Chaining is left on so reaching the end resumes the page. */}
-        <div className="flex flex-1 flex-col px-6 pt-6 lg:min-h-0 lg:overflow-y-auto">
+        {/* Scrolls like a real device, so a long screen never resizes the frame. */}
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-6 pt-6">
           {children}
         </div>
 
