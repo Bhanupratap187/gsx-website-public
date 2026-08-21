@@ -42,7 +42,7 @@ export function Verticals() {
         ))}
       </HairlineGrid>
 
-      <HairlineGrid columns={5} rounded className="shadow-card mt-7">
+      <HairlineGrid columns={5} className="mt-7">
         {PARTNER_GROUPS.map((group) => {
           // Widened from the const tuple so the optional logo is visible.
           // Widened from the const tuple so the optional fields are visible.
@@ -50,7 +50,7 @@ export function Verticals() {
           return (
             <div
               key={group.label}
-              className="p-card flex flex-col gap-5 bg-white"
+              className="bg-ground p-card flex flex-col gap-5"
             >
               <p className="text-accent-text text-2xs font-extrabold tracking-[0.13em] uppercase">
                 {group.label}

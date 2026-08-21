@@ -49,7 +49,6 @@ export const VERTICALS = {
   title: "GSX connects the gym to where members already spend.",
   lede: "GymSciencx coordinates demand and attribution across partner networks. It does not replace the providers or platforms fulfilling care, meals, products or payments.",
   itemGroupLabel: "Highlight a demand vertical",
-  partnerLabel: "Partner networks GSX coordinates with",
 } as const;
 
 // Named partners per category. A logo is optional so a brand can ship as a
