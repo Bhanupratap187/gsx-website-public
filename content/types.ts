@@ -167,6 +167,20 @@ export interface ProseSection {
   blocks: readonly ProseBlock[];
 }
 
+export interface Partner {
+  name: string;
+  // Absent until the artwork lands; the name renders as a wordmark instead.
+  logo?: { src: string; width: number; height: number };
+}
+
+export interface PartnerGroup {
+  label: string;
+  // How many marks share a row once the cell is wide enough. A lone mark needs
+  // no split, so it is left unset.
+  perRow?: 2 | 3;
+  partners: readonly Partner[];
+}
+
 export interface TeamMember {
   name: string;
   role: string;
