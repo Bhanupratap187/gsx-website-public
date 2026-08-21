@@ -7,7 +7,7 @@ import { ACTIVATE_CTA } from "@/content/site";
 // oversized arcs bleeding out of its corners — the live `.activate-section`.
 export function Activate() {
   return (
-    <section id="activate" aria-labelledby="activate-title" className="pb-8">
+    <section id="activate" aria-labelledby="activate-title" className="py-8">
       <div
         data-tone="blue"
         className="bg-ground text-content max-tablet:rounded-[28px] max-tablet:px-[22px] max-tablet:py-[88px] relative mx-auto w-[min(var(--container-site),100%_-_var(--spacing-shell))] overflow-hidden rounded-[38px] px-[70px] py-[110px] text-center"

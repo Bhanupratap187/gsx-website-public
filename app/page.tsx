@@ -11,7 +11,6 @@ import { Verticals } from "@/components/sections/verticals";
 import { BusinessModel } from "@/components/sections/business-model";
 import { Company } from "@/components/sections/company";
 import { Privacy } from "@/components/sections/privacy";
-import { Faq } from "@/components/sections/faq";
 import { Activate } from "@/components/sections/activate";
 
 // Section order is the page's information architecture. The experience map and
@@ -32,7 +31,6 @@ export default function HomePage() {
       <BusinessModel />
       <Company />
       <Privacy />
-      <Faq />
       <Activate />
     </main>
   );

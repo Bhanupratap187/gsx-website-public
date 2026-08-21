@@ -53,7 +53,6 @@ export const FOOTER_GROUPS = [
       { label: "Videos", href: "/#videos" },
       { label: "Network", href: "/#ecosystem" },
       { label: "Revenue", href: "/#business-model" },
-      { label: "FAQ", href: "/#faq" },
     ],
   },
   {
