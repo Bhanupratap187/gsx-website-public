@@ -23,13 +23,19 @@ export function Opportunity() {
         }
       />
 
-      <HairlineGrid minItem={260} gap={2} className="mt-block-lg">
+      <HairlineGrid
+        minItem={260}
+        gap={2}
+        selectLabel={OPPORTUNITY.stepGroupLabel}
+        className="mt-block-lg"
+      >
         {OPPORTUNITY_STEPS.map((step) => (
           <NumberedCard
             key={step.index}
             index={step.index}
             title={step.title}
             body={step.body}
+            selectGroup="opportunity-step"
           />
         ))}
       </HairlineGrid>

@@ -9,6 +9,10 @@ const tag = cva(
       variant: {
         light: "border-line-tag text-ink-soft",
         dark: "border-ink-line-3 text-muted-dark-3",
+        // Follows a `group` card that inverts on hover or selection. The tone
+        // tokens cannot carry this: the tag palette is its own pair.
+        invert:
+          "border-line-tag text-ink-soft group-hover:border-ink-line-3 group-hover:text-muted-dark-3 group-has-[:checked]:border-ink-line-3 group-has-[:checked]:text-muted-dark-3",
       },
       size: {
         sm: "px-3.5 py-2 text-2xs",

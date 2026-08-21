@@ -85,14 +85,6 @@
   --color-warn-dot: #f5b743;
   --color-danger: #ef292c;
 
-  /* Brand chips inside the phone mockups */
-  --color-brand-alo: #e6e2f7;
-  --color-brand-alo-ink: #4a4a6a;
-  --color-brand-glow: #f9e3da;
-  --color-brand-glow-ink: #7a4a38;
-  --color-brand-pura: #e4efc9;
-  --color-brand-pura-ink: #4a5a28;
-
   /* Display type. Sizes, leading and tracking all come from the live
      stylesheet — it tracks far tighter than the original prototype. */
   --text-display: clamp(58px, 6.25vw, 104px);
@@ -182,8 +174,11 @@
     --rule-grid: var(--color-line-grid-2);
   }
 
+  /* :has(:checked) is how a card grid keeps the tone after the click — the
+     radio inside the card is the state, so no JavaScript is involved. */
   [data-tone="dark"],
-  [data-tone-hover="dark"]:hover {
+  [data-tone-hover="dark"]:hover,
+  [data-tone-hover="dark"]:has(:checked) {
     --ground: var(--color-ink-bezel);
     --raised: var(--color-ink-tile);
     --content: #fff;

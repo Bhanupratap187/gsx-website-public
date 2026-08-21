@@ -48,11 +48,18 @@ export interface Stage {
 
 export type BrandKey = "alo" | "glow" | "pura";
 
+// Partner marks are real artwork rather than a letter in a tinted tile. Intrinsic
+// dimensions travel with the src so next/image can reserve the box.
+export interface BrandLogo {
+  src: string;
+  width: number;
+  height: number;
+}
+
 // One finding drives the member screens, the scanner table, the review vault
 // and the attribution ledger, so it carries every field those four need.
 export interface Finding {
   brand: BrandKey;
-  mark: string;
   name: string;
   category: string;
   evidence: string;
@@ -99,4 +106,78 @@ export interface MemberOption {
   mark: string;
   label: string;
   ghost?: boolean;
+}
+
+export interface FooterGroup {
+  title: string;
+  items: readonly NavItem[];
+}
+
+export type SocialPlatform = "linkedin" | "x" | "facebook" | "instagram";
+
+export interface SocialLink {
+  platform: SocialPlatform;
+  label: string;
+  href: string;
+}
+
+// The standalone routes share one intro band. Route metadata is derived from
+// metaTitle/metaDescription rather than retyped in each page module.
+export interface PageIntro {
+  kicker: string;
+  title: string;
+  lede: string;
+  // Effective date, shown under the lede on the legal routes.
+  updated?: string;
+  metaTitle: string;
+  metaDescription: string;
+}
+
+// A bullet, optionally opening with a bold lead-in term.
+export interface ProsePoint {
+  term?: string;
+  detail: string;
+}
+
+export interface ProseContact {
+  label: string;
+  value: string;
+  href?: string;
+}
+
+export interface ProseAddress {
+  label: string;
+  lines: readonly string[];
+}
+
+// A legal clause interleaves prose, lists, subheadings and conspicuous notices
+// in whatever order the drafting needs, so a section is an ordered block list
+// rather than a fixed set of slots. A bare string is a paragraph.
+export type ProseBlock =
+  | string
+  | { strong: string }
+  | { heading: string }
+  | { list: readonly ProsePoint[] }
+  | { ordered: readonly string[] }
+  | { contacts: readonly ProseContact[] }
+  | { address: ProseAddress };
+
+export interface ProseSection {
+  heading: string;
+  blocks: readonly ProseBlock[];
+}
+
+export interface TeamMember {
+  name: string;
+  role: string;
+  // Intrinsic dimensions travel with the portrait so next/image reserves the box.
+  photo: { src: string; width: number; height: number };
+  linkedin: string;
+}
+
+export interface ContactChannel {
+  label: string;
+  detail: string;
+  href: string;
+  body: string;
 }

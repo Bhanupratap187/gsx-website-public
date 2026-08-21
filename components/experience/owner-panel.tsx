@@ -1,4 +1,4 @@
-import { ArrowRight, Check, CircleDot, X } from "lucide-react";
+import { ArrowRight, Check, CircleDot, Pencil, X } from "lucide-react";
 import { BrandAvatar } from "@/components/ui/brand-avatar";
 import { Meter } from "@/components/ui/meter";
 import { NetworkCalculator } from "@/components/interactive/network-calculator";
@@ -60,14 +60,28 @@ function StatusChip({ children }: { children: string }) {
 
 // Below md each cell carries its own label, so a wrapped value is never
 // orphaned from its column header (PLAN §6.5).
+// Below md the table linearises: the ::before carries the column header and sits
+// in a fixed first column, with every child forced into the second so a cell
+// with two lines still reads as one label/value pair rather than a stack.
+// The brand cell carries no mobile header: the logo and name identify the row,
+// so it spans the full width at the left edge instead of sitting in column two.
+const DECISIONS = [
+  { label: "Confirm", Icon: Check },
+  { label: "Edit", Icon: Pencil },
+  { label: "Reject", Icon: X },
+] as const;
+
+const identityCell =
+  "block pt-0.5 pb-3 md:table-cell md:py-4.5 md:align-middle";
+
 const cell =
-  "block py-1 md:table-cell md:py-4.5 md:align-middle before:block before:text-2xs before:font-bold before:tracking-[0.09em] before:text-muted-2 before:content-[attr(data-label)] md:before:hidden";
+  "grid grid-cols-[6.5rem_minmax(0,1fr)] items-baseline gap-x-4 py-1.5 [&>*]:col-start-2 before:text-2xs before:font-bold before:tracking-[0.09em] before:text-muted-2 before:content-[attr(data-label)] md:table-cell md:py-4.5 md:align-middle md:[&>*]:col-start-auto md:before:hidden";
 
 function Join() {
   return (
     <>
       <Frame>
-        <div className="flex flex-wrap items-center gap-2.5">
+        <div className="@container flex flex-wrap items-center gap-2.5">
           {ONBOARDING_FLOW.map((step, i) => (
             <span key={step.index} className="contents">
               <div className="border-line-card min-w-[150px] flex-1 rounded-2xl border p-4">
@@ -80,7 +94,7 @@ function Join() {
               {i < ONBOARDING_FLOW.length - 1 ? (
                 <ArrowRight
                   aria-hidden="true"
-                  className="text-blue size-4 flex-none"
+                  className="text-blue hidden size-4 flex-none @[720px]:block"
                 />
               ) : null}
             </span>
@@ -189,11 +203,9 @@ function FindingsTable({ withDecision = false }: { withDecision?: boolean }) {
             key={f.name}
             className="border-line-soft block border-b py-4 md:table-row md:py-0"
           >
-            <td className={cell} data-label="FINDING">
+            <td className={identityCell}>
               <span className="flex items-center gap-3">
-                <BrandAvatar brand={f.brand} size="lg">
-                  {f.mark}
-                </BrandAvatar>
+                <BrandAvatar brand={f.brand} size="lg" />
                 <span>
                   <span className="block text-base font-bold">{f.name}</span>
                   <span className="text-muted-2 block text-sm">
@@ -219,21 +231,27 @@ function FindingsTable({ withDecision = false }: { withDecision?: boolean }) {
             </td>
             {withDecision ? (
               <td className={cell} data-label="DECISION">
-                <span className="flex flex-wrap gap-2">
-                  {["Confirm", "Edit", "Reject"].map((action) => {
+                <span className="@container flex flex-wrap gap-2">
+                  {DECISIONS.map(({ label, Icon }) => {
                     const active =
-                      (f.status === "verified" && action === "Confirm") ||
-                      (f.status === "review" && action === "Edit");
+                      (f.status === "verified" && label === "Confirm") ||
+                      (f.status === "review" && label === "Edit");
                     return (
                       <span
-                        key={action}
-                        className={`rounded-lg border px-3.5 py-2 text-sm font-bold ${
+                        key={label}
+                        className={`flex size-9 items-center justify-center rounded-lg border text-sm font-bold @[320px]:w-auto @[320px]:px-3.5 ${
                           active
                             ? "border-blue text-blue-ink"
                             : "border-line-card text-ink-soft"
                         }`}
                       >
-                        {action}
+                        <Icon
+                          aria-hidden="true"
+                          className="size-4 @[320px]:hidden"
+                        />
+                        <span className="sr-only @[320px]:not-sr-only">
+                          {label}
+                        </span>
                       </span>
                     );
                   })}
@@ -259,7 +277,7 @@ function Discover() {
           </span>
         }
       />
-      <div className="mt-5.5 flex flex-wrap items-center gap-2">
+      <div className="@container mt-5.5 flex flex-wrap items-center gap-2">
         {SCANNER_STEPS.map((step, i) => (
           <span key={step.index} className="contents">
             <div className="bg-surface min-w-[130px] flex-1 rounded-xl p-3.5">
@@ -272,7 +290,7 @@ function Discover() {
             {i < SCANNER_STEPS.length - 1 ? (
               <ArrowRight
                 aria-hidden="true"
-                className="text-blue size-4 flex-none"
+                className="text-blue hidden size-4 flex-none @[760px]:block"
               />
             ) : null}
           </span>
@@ -329,14 +347,12 @@ function Activate() {
         {REWARD_JOURNEYS.map((journey) => (
           <div
             key={journey.index}
-            className="border-line-soft flex flex-wrap items-center gap-4 border-t py-4.5"
+            className="border-line-soft @container flex flex-wrap items-center gap-4 border-t py-4.5"
           >
-            <span className="text-muted-4 flex-none text-sm font-bold">
+            <span className="text-muted-4 hidden flex-none text-sm font-bold @[560px]:block">
               {journey.index}
             </span>
-            <BrandAvatar brand={journey.brand as BrandKey} size="lg">
-              {journey.mark}
-            </BrandAvatar>
+            <BrandAvatar brand={journey.brand as BrandKey} size="lg" />
             <span className="min-w-0 flex-[2_1_190px]">
               <span className="text-muted-2 text-2xs block font-bold tracking-[0.09em]">
                 TRIGGER
@@ -350,7 +366,7 @@ function Activate() {
             </span>
             <ArrowRight
               aria-hidden="true"
-              className="text-blue size-4 flex-none"
+              className="text-blue hidden size-4 flex-none @[560px]:block"
             />
             <span className="min-w-0 flex-[2_1_190px]">
               <span className="text-muted-2 text-2xs block font-bold tracking-[0.09em]">
@@ -374,13 +390,13 @@ function Activate() {
           </div>
         ))}
       </div>
-      <div className="bg-ink mt-5.5 flex flex-wrap items-center gap-3 rounded-2xl px-6 py-5">
+      <div className="bg-ink @container mt-5.5 flex flex-wrap items-center gap-3 rounded-2xl px-6 py-5">
         {SIGNAL_CHIPS.map((chip, i) => (
           <span key={chip} className="contents">
             <span className="bg-ink-line rounded-lg px-4 py-2.5 text-sm text-white">
               {chip}
             </span>
-            <span className="text-blue">
+            <span className="text-blue hidden @[720px]:inline">
               {i === SIGNAL_CHIPS.length - 1 ? "→" : "+"}
             </span>
           </span>
@@ -427,11 +443,9 @@ function Value() {
               key={f.name}
               className="border-line-soft block border-b py-4 md:table-row md:py-0"
             >
-              <td className={cell} data-label="OPPORTUNITY">
+              <td className={identityCell}>
                 <span className="flex items-center gap-3">
-                  <BrandAvatar brand={f.brand} size="lg">
-                    {f.mark}
-                  </BrandAvatar>
+                  <BrandAvatar brand={f.brand} size="lg" />
                   <span>
                     <span className="block text-base font-bold">{f.name}</span>
                     <span className="text-muted-2 block text-sm">

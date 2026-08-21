@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import { SelectCard } from "./select-card";
 
 interface NumberedCardProps {
   index: string;
-  title: ReactNode;
+  title: string;
   body?: ReactNode;
   children?: ReactNode;
   // "pushed" drops the title by a fixed offset (the live numbered grids);
@@ -11,8 +12,9 @@ interface NumberedCardProps {
   align?: "top" | "pushed" | "bottom";
   size?: "sm" | "md" | "lg";
   minHeight?: string;
-  // Flips the cell to the dark tone on hover, text and accent included.
-  invertOnHover?: boolean;
+  // Radio name shared by the grid. Set it to make the card invert on hover and
+  // stay inverted once picked; omit it for a static card.
+  selectGroup?: string;
   className?: string;
 }
 
@@ -30,18 +32,14 @@ export function NumberedCard({
   align = "top",
   size = "sm",
   minHeight,
-  invertOnHover = false,
+  selectGroup,
   className,
 }: NumberedCardProps) {
-  return (
-    <div
-      data-tone-hover={invertOnHover ? "dark" : undefined}
-      style={minHeight ? { minHeight } : undefined}
-      className={cn(
-        "bg-ground text-content p-card flex flex-col transition-colors",
-        className,
-      )}
-    >
+  const style = minHeight ? { minHeight } : undefined;
+  const shell = cn("p-card flex flex-col", className);
+
+  const content = (
+    <>
       <span className="text-accent-text text-xs font-extrabold tracking-[0.1em] transition-colors">
         {index}
       </span>
@@ -62,6 +60,28 @@ export function NumberedCard({
         </p>
       ) : null}
       {children}
+    </>
+  );
+
+  if (selectGroup) {
+    return (
+      <SelectCard
+        group={selectGroup}
+        label={title}
+        style={style}
+        className={shell}
+      >
+        {content}
+      </SelectCard>
+    );
+  }
+
+  return (
+    <div
+      style={style}
+      className={cn("bg-ground text-content transition-colors", shell)}
+    >
+      {content}
     </div>
   );
 }

@@ -59,7 +59,7 @@ export function PhoneFrame({
         </div>
 
         <div className="flex items-center gap-2.5 px-6 pt-3.5">
-          <Logo className="h-4" />
+          <Logo variant="mark" className="h-4" />
           <span className="text-2xs font-extrabold tracking-[0.09em]">
             {label}
           </span>

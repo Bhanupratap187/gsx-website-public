@@ -44,6 +44,8 @@ export const COMPANY = {
   kicker: "About GymSciencx",
   title: "Fitness creates more than workouts. It creates measurable demand.",
   lede: "GymSciencx was built to make the gym the center of a connected fitness economy—where operators run smarter businesses, members get more value, trainers grow, and partners can prove what their demand creates.",
+  link: { label: "About Us", href: "/about" },
+  factGroupLabel: "Highlight a company fact",
 } as const;
 
 export const COMPANY_FACTS = [

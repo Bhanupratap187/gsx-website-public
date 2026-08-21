@@ -10,6 +10,7 @@ export const PLATFORM = {
     "Payments + affiliate network",
   ],
   formulaResult: "One measurable business",
+  moduleGroupLabel: "Highlight a platform module",
 } as const;
 
 export const PLATFORM_MODULES = [

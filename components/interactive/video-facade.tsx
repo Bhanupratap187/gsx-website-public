@@ -44,6 +44,8 @@ function parsePlayerMessage(data: unknown) {
 
 interface VideoFacadeProps {
   title: string;
+  // Sits beside the play glyph and opens the button's accessible name.
+  label: string;
   vimeoId?: string;
   poster?: string;
   size?: "lg" | "sm";
@@ -55,6 +57,7 @@ interface VideoFacadeProps {
 // requests at first paint, which the performance budget will not carry.
 export function VideoFacade({
   title,
+  label,
   vimeoId,
   poster,
   size = "lg",
@@ -130,8 +133,8 @@ export function VideoFacade({
           setActiveVideo(vimeoId);
           setPlaying(true);
         }}
-        aria-label={`Play ${title}`}
-        className="group absolute inset-0 grid w-full place-items-center"
+        aria-label={`${label}: ${title}`}
+        className="group absolute inset-0 w-full"
       >
         {poster ? (
           <Image
@@ -152,17 +155,32 @@ export function VideoFacade({
         />
         <span
           className={cn(
-            "bg-blue text-ink shadow-play relative grid place-items-center rounded-full pl-[3px] transition-transform group-hover:scale-107",
-            size === "lg" ? "size-[58px]" : "size-[42px]",
+            "absolute bottom-0 left-0 flex items-center",
+            size === "lg"
+              ? "gap-4 p-[clamp(18px,2vw,30px)]"
+              : "gap-3 p-[clamp(14px,1.6vw,22px)]",
           )}
         >
-          <Play
-            aria-hidden="true"
+          <span
             className={cn(
-              "fill-current",
-              size === "lg" ? "size-5" : "size-3.5",
+              "bg-blue text-ink shadow-play grid flex-none place-items-center rounded-full pl-[3px] transition-transform group-hover:scale-107",
+              size === "lg" ? "size-[58px]" : "size-[44px]",
             )}
-          />
+          >
+            <Play
+              aria-hidden="true"
+              className={cn(
+                "fill-current",
+                size === "lg" ? "size-5" : "size-3.5",
+              )}
+            />
+          </span>
+          <span
+            aria-hidden="true"
+            className="text-2xs font-extrabold tracking-[0.13em] text-white uppercase"
+          >
+            {label}
+          </span>
         </span>
       </button>
     </div>

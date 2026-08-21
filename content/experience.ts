@@ -9,6 +9,9 @@ export const EXPERIENCE = {
     title: "Consent before commerce",
     body: "The gym sees approved intelligence—not a member's private inbox.",
   },
+  // Appended to any in-mockup control, which walks the map forward rather than
+  // doing what its visible label literally says.
+  advanceHint: "— continues the interactive walkthrough",
 } as const;
 
 export const STAGES = [
@@ -163,7 +166,6 @@ export const STAGES = [
 export const FINDINGS = [
   {
     brand: "alo",
-    mark: "A",
     name: "Alo Yoga",
     category: "Activewear",
     evidence: "8 itemized receipts",
@@ -177,7 +179,6 @@ export const FINDINGS = [
   },
   {
     brand: "glow",
-    mark: "✦",
     name: "GlowHaus Medspa",
     category: "Facials + skincare",
     evidence: "16 appointment receipts",
@@ -191,7 +192,6 @@ export const FINDINGS = [
   },
   {
     brand: "pura",
-    mark: "PV",
     name: "Pura Vida",
     category: "Juices + smoothies",
     evidence: "102 fulfilled orders",
@@ -276,7 +276,6 @@ export const REWARD_JOURNEYS = [
   {
     index: "01",
     brand: "alo",
-    mark: "A",
     trigger: "15 calories remaining",
     triggerSource: "Wearable activity",
     experience: "Unlock 25% off Alo",
@@ -286,7 +285,6 @@ export const REWARD_JOURNEYS = [
   {
     index: "02",
     brand: "glow",
-    mark: "✦",
     trigger: "2 workouts remaining",
     triggerSource: "GSX gym check-ins",
     experience: "Earn 500 loyalty points",
@@ -296,7 +294,6 @@ export const REWARD_JOURNEYS = [
   {
     index: "03",
     brand: "pura",
-    mark: "PV",
     trigger: "Hard workout completed",
     triggerSource: "Workout + menu nutrition",
     experience: "35g protein smoothie",
@@ -373,10 +370,12 @@ export const MEMBER_SCREENS = {
     foot: "You choose what to share. Pause or delete access anytime.",
   },
   discover: {
+    scanningKicker: "SCANNING RECEIPTS",
+    scanningTitle: "Reading your evidence.",
     kicker: "SCAN COMPLETE",
     title: "We found what you love.",
-    progress: "100%",
     records: "184 records",
+    cta: "Review my matches",
     foot: "Personal messages and unrelated content were excluded.",
   },
   verify: {
@@ -397,19 +396,18 @@ export const MEMBER_SCREENS = {
     rows: [
       {
         brand: "glow",
-        mark: "✦",
         title: "2 workouts left",
         sub: "500 GlowHaus points",
         value: "2/4",
       },
       {
         brand: "pura",
-        mark: "PV",
         title: "Recovery pick ready",
         sub: "Power Smoothie · 35g protein",
         value: "View",
       },
     ],
+    cta: "Open my rewards wallet",
     foot: "Rewards follow real activity, never ad targeting.",
   },
   value: {
@@ -425,14 +423,12 @@ export const MEMBER_SCREENS = {
     rows: [
       {
         brand: "alo",
-        mark: "A",
         title: "25% Alo reward",
         sub: "Ready to claim",
         value: "→",
       },
       {
         brand: "glow",
-        mark: "✦",
         title: "GlowHaus progress",
         sub: "2 workouts remaining",
         value: "2/4",

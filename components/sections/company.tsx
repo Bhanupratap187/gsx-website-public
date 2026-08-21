@@ -1,6 +1,8 @@
 import { Section } from "@/components/ui/section";
 import { SectionHeader } from "@/components/ui/section-header";
 import { HairlineGrid } from "@/components/ui/hairline-grid";
+import { ArrowLink } from "@/components/ui/arrow-link";
+import { FactCard } from "@/components/ui/fact-card";
 import { COMPANY, COMPANY_FACTS } from "@/content/business-model";
 
 export function Company() {
@@ -15,18 +17,17 @@ export function Company() {
         align="start"
       />
 
-      <HairlineGrid minItem={230} className="mt-block">
+      <ArrowLink href={COMPANY.link.href} className="mt-7">
+        {COMPANY.link.label}
+      </ArrowLink>
+
+      <HairlineGrid
+        minItem={230}
+        selectLabel={COMPANY.factGroupLabel}
+        className="mt-block"
+      >
         {COMPANY_FACTS.map((fact) => (
-          <div key={fact.term} className="bg-ground p-card">
-            <dl>
-              <dt className="text-muted-2 text-sm font-bold tracking-[0.13em]">
-                {fact.term}
-              </dt>
-              <dd className="text-md mt-3 leading-[1.4] font-semibold">
-                {fact.detail}
-              </dd>
-            </dl>
-          </div>
+          <FactCard key={fact.term} fact={fact} group="company-fact" />
         ))}
       </HairlineGrid>
     </Section>

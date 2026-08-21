@@ -40,24 +40,27 @@ export function TrainerOsSection() {
         screens={TRAINER_TABS.map((tab) => (
           <TrainerScreen key={tab.id} tab={tab.id} />
         ))}
+        split={
+          <>
+            <div className="border-ink-line-2 mt-[clamp(36px,4vw,64px)] grid grid-cols-[repeat(auto-fit,minmax(min(100%,200px),1fr))] gap-3.5 border-t pt-[clamp(28px,3vw,44px)]">
+              {TRAINER_SPLIT.map((part) => (
+                <div
+                  key={part.party}
+                  className="bg-ink-tile text-muted-4 rounded-xl px-6 py-5.5 text-center text-sm"
+                >
+                  <strong className="text-blue text-lg font-extrabold">
+                    {part.share}
+                  </strong>{" "}
+                  {part.party}
+                </div>
+              ))}
+            </div>
+            <p className="text-muted-3 mt-4.5 text-sm leading-[1.55]">
+              {TRAINER.splitDisclaimer}
+            </p>
+          </>
+        }
       />
-
-      <div className="border-ink-line-2 mt-[clamp(36px,4vw,64px)] grid grid-cols-[repeat(auto-fit,minmax(min(100%,200px),1fr))] gap-3.5 border-t pt-[clamp(28px,3vw,44px)]">
-        {TRAINER_SPLIT.map((part) => (
-          <div
-            key={part.party}
-            className="bg-ink-tile text-muted-4 rounded-xl px-6 py-5.5 text-center text-sm"
-          >
-            <strong className="text-blue text-lg font-extrabold">
-              {part.share}
-            </strong>{" "}
-            {part.party}
-          </div>
-        ))}
-      </div>
-      <p className="text-muted-3 mt-4.5 text-sm leading-[1.55]">
-        {TRAINER.splitDisclaimer}
-      </p>
     </Section>
   );
 }

@@ -5,7 +5,7 @@ import { HOW_IT_WORKS, HOW_IT_WORKS_STEPS } from "@/content/opportunity";
 
 export function HowItWorks() {
   return (
-    <Section labelledBy="how-title">
+    <Section id="how-it-works" labelledBy="how-title">
       <p className="text-kicker text-accent-text font-extrabold tracking-[0.13em] uppercase">
         {HOW_IT_WORKS.kicker}
       </p>
@@ -16,7 +16,11 @@ export function HowItWorks() {
         {HOW_IT_WORKS.lede}
       </p>
 
-      <HairlineGrid columns={4} className="mt-block">
+      <HairlineGrid
+        columns={4}
+        selectLabel={HOW_IT_WORKS.stepGroupLabel}
+        className="mt-block"
+      >
         {HOW_IT_WORKS_STEPS.map((step) => (
           <NumberedCard
             key={step.index}
@@ -24,7 +28,7 @@ export function HowItWorks() {
             title={step.title}
             body={step.body}
             align="pushed"
-            invertOnHover
+            selectGroup="how-it-works-step"
             className="hover:shadow-float relative min-h-[230px] duration-[180ms] hover:z-[2] hover:-translate-y-[5px]"
           />
         ))}

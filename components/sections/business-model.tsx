@@ -66,7 +66,7 @@ export function BusinessModel() {
             />
           ))}
         </div>
-        <div className="mt-4 flex flex-wrap gap-7 text-base">
+        <div className="mt-4 flex flex-wrap justify-center gap-7 text-base">
           {REVENUE_SPLIT.map((part, i) => (
             <span key={part.label} className="flex items-center gap-2.5">
               <span
@@ -77,7 +77,7 @@ export function BusinessModel() {
             </span>
           ))}
         </div>
-        <p className="text-muted-2 mt-[18px] max-w-[760px] text-sm leading-[1.55]">
+        <p className="text-muted-2 mx-auto mt-[18px] max-w-[760px] text-center text-sm leading-[1.55]">
           {BUSINESS_MODEL.splitDisclaimer}
         </p>
       </div>

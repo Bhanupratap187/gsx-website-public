@@ -8,9 +8,12 @@ import { TRAINER_TABS } from "@/content/trainer";
 
 interface TrainerOsProps {
   screens: ReactNode[];
+  // The commission split sits under whichever tab is open, so it is rendered
+  // once on the server and slotted into the panel rather than re-created here.
+  split: ReactNode;
 }
 
-export function TrainerOs({ screens }: TrainerOsProps) {
+export function TrainerOs({ screens, split }: TrainerOsProps) {
   const [index, setIndex] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const tab = TRAINER_TABS[index];
@@ -48,7 +51,7 @@ export function TrainerOs({ screens }: TrainerOsProps) {
         <div
           role="tablist"
           aria-label="Trainer OS capabilities"
-          className="border-ink-line-3 [&>*]:border-ink-line-2 grid grid-cols-2 border-t lg:grid-cols-4 [&>*]:border-r [&>*]:border-b"
+          className="border-ink-line-3 [&>*]:border-ink-line-2 grid grid-cols-2 border-t border-l lg:grid-cols-4 [&>*]:border-r [&>*]:border-b"
         >
           {TRAINER_TABS.map((item, i) => {
             const on = i === index;
@@ -116,6 +119,8 @@ export function TrainerOs({ screens }: TrainerOsProps) {
               </li>
             ))}
           </ul>
+
+          {split}
         </div>
       </div>
     </div>

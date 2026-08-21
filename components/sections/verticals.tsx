@@ -16,7 +16,11 @@ export function Verticals() {
         size="md"
       />
 
-      <HairlineGrid minItem={230} className="mt-block">
+      <HairlineGrid
+        minItem={230}
+        selectLabel={VERTICALS.itemGroupLabel}
+        className="mt-block"
+      >
         {VERTICAL_ITEMS.map((item) => (
           <NumberedCard
             key={item.index}
@@ -26,6 +30,7 @@ export function Verticals() {
             size="md"
             align="bottom"
             minHeight="220px"
+            selectGroup="vertical"
           />
         ))}
       </HairlineGrid>

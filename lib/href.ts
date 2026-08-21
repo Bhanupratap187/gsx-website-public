@@ -1,8 +1,9 @@
-// next/link dedupes navigation to a URL that already matches, so a second click
-// on an in-page anchor does nothing. A plain <a> re-runs fragment navigation
-// every time, which is what makes repeat clicks scroll again.
+// Anything carrying a fragment stays a plain <a>, even the root-relative
+// `/#platform` form the shared nav uses. next/link dedupes navigation to a URL
+// that already matches, so a second click on an in-page anchor does nothing,
+// while <a> re-runs fragment navigation every time.
 export function isRouteHref(href: string) {
-  return href.startsWith("/");
+  return href.startsWith("/") && !href.includes("#");
 }
 
 // Only absolute http(s) links leave the site. mailto: opens a mail client and

@@ -9,6 +9,7 @@ export const OPPORTUNITY = {
     label: "Watch one member become a revenue journey",
     href: "#experience",
   },
+  stepGroupLabel: "Highlight an opportunity",
 } as const;
 
 export const OPPORTUNITY_STEPS = [
@@ -33,6 +34,7 @@ export const HOW_IT_WORKS = {
   kicker: "How it works",
   title: "From permission to payout—without losing member trust.",
   lede: "One transparent system connects consent, intelligence, rewards, attribution and revenue.",
+  stepGroupLabel: "Highlight a step in the flow",
 } as const;
 
 export const HOW_IT_WORKS_STEPS = [

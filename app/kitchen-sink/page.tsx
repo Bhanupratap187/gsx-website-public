@@ -35,7 +35,7 @@ function Block({ title, children }: { title: string; children: ReactNode }) {
 
 export default function KitchenSinkPage() {
   return (
-    <main>
+    <main id="main">
       <Section tone="light">
         <h1 className="text-h2 font-normal">Kitchen sink</h1>
         <p className="text-lede text-content-muted mt-4 max-w-155">
@@ -102,17 +102,13 @@ export default function KitchenSinkPage() {
 
         <Block title="Brand avatars">
           <div className="flex flex-wrap items-center gap-3">
-            <BrandAvatar brand="alo">A</BrandAvatar>
-            <BrandAvatar brand="glow">✦</BrandAvatar>
-            <BrandAvatar brand="pura">PV</BrandAvatar>
+            <BrandAvatar brand="alo" />
+            <BrandAvatar brand="glow" />
+            <BrandAvatar brand="pura" />
             <BrandAvatar brand="accent">AI</BrandAvatar>
             <BrandAvatar brand="muted">✕</BrandAvatar>
-            <BrandAvatar brand="alo" size="sm">
-              A
-            </BrandAvatar>
-            <BrandAvatar brand="alo" size="lg">
-              A
-            </BrandAvatar>
+            <BrandAvatar brand="alo" size="sm" />
+            <BrandAvatar brand="alo" size="lg" />
           </div>
         </Block>
 
@@ -286,14 +282,14 @@ export default function KitchenSinkPage() {
               />
               <div className="mt-6">
                 <PhoneListRow
-                  leading={<BrandAvatar brand="glow">✦</BrandAvatar>}
+                  leading={<BrandAvatar brand="glow" />}
                   title="2 workouts left"
                   sub="500 GlowHaus points"
                   value="2/4"
                   divider="top"
                 />
                 <PhoneListRow
-                  leading={<BrandAvatar brand="pura">PV</BrandAvatar>}
+                  leading={<BrandAvatar brand="pura" />}
                   title="Recovery pick ready"
                   sub="Power Smoothie · 35g protein"
                   value="View"
@@ -321,13 +317,13 @@ export default function KitchenSinkPage() {
               />
               <div className="mt-1.5">
                 <PhoneListRow
-                  leading={<BrandAvatar brand="alo">A</BrandAvatar>}
+                  leading={<BrandAvatar brand="alo" />}
                   title="25% Alo reward"
                   sub="Ready to claim"
                   value="→"
                 />
                 <PhoneListRow
-                  leading={<BrandAvatar brand="glow">✦</BrandAvatar>}
+                  leading={<BrandAvatar brand="glow" />}
                   title="GlowHaus progress"
                   sub="2 workouts remaining"
                   value="2/4"
@@ -396,7 +392,8 @@ export default function KitchenSinkPage() {
             </ul>
             <p>
               Questions go to{" "}
-              <a href="mailto:hello@gymsciencx.com">hello@gymsciencx.com</a>.
+              <a href="mailto:support@gymsciencx.com">support@gymsciencx.com</a>
+              .
             </p>
           </Prose>
         </Block>

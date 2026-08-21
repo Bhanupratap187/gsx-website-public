@@ -1,5 +1,3 @@
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import { Hero } from "@/components/sections/hero";
 import { Triptych } from "@/components/sections/triptych";
 import { Platform } from "@/components/sections/platform";
@@ -20,26 +18,22 @@ import { Activate } from "@/components/sections/activate";
 // Trainer OS islands slot in after HowItWorks and Videos in phase 4.
 export default function HomePage() {
   return (
-    <>
-      <Header />
-      <main>
-        <Hero />
-        <Triptych />
-        <Platform />
-        <Opportunity />
-        <HowItWorks />
-        <Experience />
-        <TrainerOsSection />
-        <Videos />
-        <Ecosystem />
-        <Verticals />
-        <BusinessModel />
-        <Company />
-        <Privacy />
-        <Faq />
-        <Activate />
-      </main>
-      <Footer />
-    </>
+    <main id="main">
+      <Hero />
+      <Triptych />
+      <Platform />
+      <Opportunity />
+      <HowItWorks />
+      <Experience />
+      <TrainerOsSection />
+      <Videos />
+      <Ecosystem />
+      <Verticals />
+      <BusinessModel />
+      <Company />
+      <Privacy />
+      <Faq />
+      <Activate />
+    </main>
   );
 }

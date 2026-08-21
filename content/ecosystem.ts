@@ -54,6 +54,7 @@ export const VERTICALS = {
     "Payments + checkout",
     "Affiliate attribution",
   ],
+  itemGroupLabel: "Highlight a demand vertical",
 } as const;
 
 export const VERTICAL_ITEMS = [

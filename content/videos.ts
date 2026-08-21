@@ -5,9 +5,10 @@ export const VIDEOS_SECTION = {
   title: "The product story—built for operators.",
   lede: "Start with the gym-owner onboarding experience, then explore how GSX connects commerce, care and payments beyond the workout.",
   libraryLink: "Explore the GSX video library",
+  playFeatured: "Play featured film",
+  play: "Play film",
 } as const;
 
-// "Beyond the Workout" has no Vimeo link yet, so it keeps the flat placeholder.
 // Posters are copied locally — a vimeocdn URL would be a third-party request at
 // first paint, and next/image cannot optimise a remote host we have not allowed.
 export const VIDEOS = [
@@ -25,6 +26,7 @@ export const VIDEOS = [
     kicker: "CONNECTED ECOSYSTEM",
     duration: "1:44",
     title: "Beyond the Workout",
+    vimeoId: "1179961296",
     body: "How GSX connects gyms, member demand and wellness partners.",
   },
   {

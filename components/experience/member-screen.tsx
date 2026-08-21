@@ -7,6 +7,8 @@ import {
   Wallet,
 } from "lucide-react";
 import { BrandAvatar } from "@/components/ui/brand-avatar";
+import { AdvanceButton } from "@/components/interactive/advance-button";
+import { ScanSequence } from "@/components/interactive/scan-sequence";
 import { PhoneListRow } from "@/components/phone/phone-list-row";
 import { PhoneToggleRow } from "@/components/phone/phone-toggle-row";
 import { ProgressRing } from "@/components/phone/progress-ring";
@@ -54,6 +56,15 @@ function Foot({
   );
 }
 
+function ScreenCta({ children }: { children: string }) {
+  return (
+    <AdvanceButton className="bg-blue rounded-pill hover:bg-ink mt-5 flex w-full items-center justify-center gap-2 p-4 text-sm font-bold text-white transition-colors">
+      {children}
+      <ArrowRight aria-hidden="true" className="size-4" />
+    </AdvanceButton>
+  );
+}
+
 function Join() {
   const s = MEMBER_SCREENS.join;
   // Widened from the const tuple so the optional ghost flag is visible.
@@ -65,9 +76,9 @@ function Join() {
       <Body>{s.body}</Body>
       <div className="mt-6 flex flex-col gap-2.5">
         {options.map((option) => (
-          <div
+          <AdvanceButton
             key={option.label}
-            className={`flex items-center gap-3 rounded-2xl border px-4 py-[15px] ${
+            className={`hover:border-blue flex w-full items-center gap-3 rounded-2xl border px-4 py-[15px] text-left transition-colors ${
               option.ghost ? "border-line-ghost bg-sand" : "border-line-card"
             }`}
           >
@@ -75,7 +86,7 @@ function Join() {
               {option.mark}
             </BrandAvatar>
             <span className="text-sm font-bold">{option.label}</span>
-          </div>
+          </AdvanceButton>
         ))}
       </div>
       <Foot icon="check">{s.foot}</Foot>
@@ -112,10 +123,7 @@ function Permission() {
           />
         ))}
       </div>
-      <div className="bg-blue rounded-pill mt-5 flex items-center justify-center gap-2 p-4 text-sm font-bold text-white">
-        {s.cta}
-        <ArrowRight aria-hidden="true" className="size-4" />
-      </div>
+      <ScreenCta>{s.cta}</ScreenCta>
       <Foot icon="control">{s.foot}</Foot>
     </>
   );
@@ -132,28 +140,31 @@ function Discover() {
           </span>
         </span>
       </div>
-      <Kicker>{s.kicker}</Kicker>
-      <Title>{s.title}</Title>
-      <div className="bg-line-soft rounded-pill mt-4.5 h-1.5 overflow-hidden">
-        <div className="bg-blue h-full w-full" />
-      </div>
-      <div className="text-muted-2 mt-2 flex justify-between text-xs">
-        <span>{s.progress}</span>
-        <span>{s.records}</span>
-      </div>
-      <div className="mt-2">
-        {FINDINGS.map((finding) => (
+      <ScanSequence
+        scanningHead={
+          <>
+            <Kicker>{s.scanningKicker}</Kicker>
+            <Title>{s.scanningTitle}</Title>
+          </>
+        }
+        completeHead={
+          <>
+            <Kicker>{s.kicker}</Kicker>
+            <Title>{s.title}</Title>
+          </>
+        }
+        records={s.records}
+        cta={<ScreenCta>{s.cta}</ScreenCta>}
+        rows={FINDINGS.map((finding) => (
           <PhoneListRow
             key={finding.name}
-            leading={
-              <BrandAvatar brand={finding.brand}>{finding.mark}</BrandAvatar>
-            }
+            leading={<BrandAvatar brand={finding.brand} />}
             title={finding.name}
             sub={finding.category}
             value={`${finding.confidence}%`}
           />
         ))}
-      </div>
+      />
       <Foot icon="check">{s.foot}</Foot>
     </>
   );
@@ -170,9 +181,7 @@ function Verify() {
         {FINDINGS.map((finding) => (
           <PhoneListRow
             key={finding.name}
-            leading={
-              <BrandAvatar brand={finding.brand}>{finding.mark}</BrandAvatar>
-            }
+            leading={<BrandAvatar brand={finding.brand} />}
             title={finding.name}
             sub={finding.cadence}
             value={finding.status === "verified" ? "Verified" : "Review"}
@@ -180,10 +189,7 @@ function Verify() {
           />
         ))}
       </div>
-      <div className="bg-blue rounded-pill mt-5 flex items-center justify-center gap-2 p-4 text-sm font-bold text-white">
-        {s.cta}
-        <ArrowRight aria-hidden="true" className="size-4" />
-      </div>
+      <ScreenCta>{s.cta}</ScreenCta>
       <p className="text-blue-ink mt-3.5 text-center text-sm font-bold">
         {s.secondary}
       </p>
@@ -217,11 +223,7 @@ function Activate() {
         {s.rows.map((row) => (
           <PhoneListRow
             key={row.title}
-            leading={
-              <BrandAvatar brand={row.brand as BrandKey}>
-                {row.mark}
-              </BrandAvatar>
-            }
+            leading={<BrandAvatar brand={row.brand as BrandKey} />}
             title={row.title}
             sub={row.sub}
             value={row.value}
@@ -229,6 +231,7 @@ function Activate() {
           />
         ))}
       </div>
+      <ScreenCta>{s.cta}</ScreenCta>
       <Foot icon="control">{s.foot}</Foot>
     </>
   );
@@ -254,11 +257,7 @@ function Value() {
         {s.rows.map((row) => (
           <PhoneListRow
             key={row.title}
-            leading={
-              <BrandAvatar brand={row.brand as BrandKey}>
-                {row.mark}
-              </BrandAvatar>
-            }
+            leading={<BrandAvatar brand={row.brand as BrandKey} />}
             title={row.title}
             sub={row.sub}
             value={row.value}

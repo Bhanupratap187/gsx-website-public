@@ -11,6 +11,9 @@ interface HairlineGridProps {
   // The warmer sand-2 sections draw a heavier 2px rule.
   gap?: 1 | 2;
   rounded?: boolean;
+  // Names the grid as a radio group. Set it when the cells are SelectCards, so
+  // the mutually exclusive choice announces itself as one.
+  selectLabel?: string;
   className?: string;
 }
 
@@ -29,10 +32,13 @@ export function HairlineGrid({
   minItem = 230,
   gap = 1,
   rounded = false,
+  selectLabel,
   className,
 }: HairlineGridProps) {
   return (
     <div
+      role={selectLabel ? "radiogroup" : undefined}
+      aria-label={selectLabel}
       style={
         columns
           ? undefined
