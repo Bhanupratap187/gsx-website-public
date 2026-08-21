@@ -1,15 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Play } from "lucide-react";
+import { Play, X } from "lucide-react";
 import { cn } from "@/lib/cn";
-import {
-  getActiveVideo,
-  getActiveVideoOnServer,
-  setActiveVideo,
-  subscribeActiveVideo,
-} from "@/lib/active-video";
 
 const PLAYER_ORIGIN = "https://player.vimeo.com";
 
@@ -26,26 +20,11 @@ const PLAYER_PARAMS = [
   "portrait=0",
 ].join("&");
 
-// Vimeo's player takes commands over postMessage, so controlling it needs no SDK.
-function command(frame: HTMLIFrameElement | null, payload: object) {
-  frame?.contentWindow?.postMessage(JSON.stringify(payload), PLAYER_ORIGIN);
-}
-
-function parsePlayerMessage(data: unknown) {
-  if (typeof data === "object" && data !== null)
-    return data as { event?: string };
-  if (typeof data !== "string") return null;
-  try {
-    return JSON.parse(data) as { event?: string };
-  } catch {
-    return null;
-  }
-}
-
 interface VideoFacadeProps {
   title: string;
   // Sits beside the play glyph and opens the button's accessible name.
   label: string;
+  closeLabel: string;
   vimeoId?: string;
   poster?: string;
   size?: "lg" | "sm";
@@ -55,50 +34,41 @@ interface VideoFacadeProps {
 // The fifth client island (PLAN §3). It exists so the Vimeo player is only
 // fetched after a click — a raw iframe costs ~700 KB and several third-party
 // requests at first paint, which the performance budget will not carry.
+//
+// Playback happens in a dialog rather than in the card: at card size the
+// player's own controls are too cramped to hit on a phone. Only one dialog can
+// be open at a time, so no cross-player coordination is needed.
 export function VideoFacade({
   title,
   label,
+  closeLabel,
   vimeoId,
   poster,
   size = "lg",
   className,
 }: VideoFacadeProps) {
-  const [playing, setPlaying] = useState(false);
-  const frameRef = useRef<HTMLIFrameElement>(null);
-  const activeId = useSyncExternalStore(
-    subscribeActiveVideo,
-    getActiveVideo,
-    getActiveVideoOnServer,
-  );
+  const [open, setOpen] = useState(false);
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
-  // Pressing play inside Vimeo's own controls has to claim the slot too, or a
-  // resumed video would leave a second one running.
+  // Native <dialog> gives focus trapping, Esc and the top layer for free; the
+  // only manual work is locking body scroll. The open checks matter because a
+  // second showModal() on an open dialog throws.
   useEffect(() => {
-    if (!playing || !vimeoId) return;
-    const frame = frameRef.current;
-    if (!frame) return;
+    const dialog = dialogRef.current;
+    if (!dialog) return;
 
-    const onMessage = (event: MessageEvent) => {
-      if (event.origin !== PLAYER_ORIGIN) return;
-      if (event.source !== frame.contentWindow) return;
-      const message = parsePlayerMessage(event.data);
-      if (message?.event === "ready") {
-        command(frame, { method: "addEventListener", value: "play" });
-      } else if (message?.event === "play") {
-        setActiveVideo(vimeoId);
-      }
-    };
-
-    window.addEventListener("message", onMessage);
-    return () => window.removeEventListener("message", onMessage);
-  }, [playing, vimeoId]);
-
-  // Anything that no longer owns playback stops, keeping its position.
-  useEffect(() => {
-    if (playing && vimeoId && activeId !== vimeoId) {
-      command(frameRef.current, { method: "pause" });
+    if (open) {
+      if (!dialog.open) dialog.showModal();
+      document.body.style.overflow = "hidden";
+    } else {
+      if (dialog.open) dialog.close();
+      document.body.style.overflow = "";
     }
-  }, [playing, vimeoId, activeId]);
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   const frame = cn(
     "bg-ink-bezel relative aspect-video overflow-hidden",
@@ -110,29 +80,11 @@ export function VideoFacade({
     return <div className={frame} />;
   }
 
-  if (playing) {
-    return (
-      <div className={frame}>
-        <iframe
-          ref={frameRef}
-          src={`${PLAYER_ORIGIN}/video/${vimeoId}?${PLAYER_PARAMS}`}
-          title={title}
-          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-          allowFullScreen
-          className="absolute inset-0 size-full"
-        />
-      </div>
-    );
-  }
-
   return (
     <div className={frame}>
       <button
         type="button"
-        onClick={() => {
-          setActiveVideo(vimeoId);
-          setPlaying(true);
-        }}
+        onClick={() => setOpen(true)}
         aria-label={`${label}: ${title}`}
         className="group absolute inset-0 w-full"
       >
@@ -183,6 +135,42 @@ export function VideoFacade({
           </span>
         </span>
       </button>
+
+      {/* Esc and the close button dismiss it, matching the nav drawer. The width
+          caps against the viewport height too, so the player still fits whole
+          on a landscape phone. */}
+      <dialog
+        ref={dialogRef}
+        aria-label={title}
+        onClose={() => setOpen(false)}
+        className="bg-ink-bezel backdrop:bg-scrim-strong m-auto w-[min(1180px,96vw,calc((88svh-3.5rem)*16/9))] max-w-none overflow-hidden rounded-[clamp(14px,2vw,20px)] p-0 text-white"
+      >
+        <div className="flex min-h-14 items-center justify-between gap-3 px-4">
+          <p className="min-w-0 truncate text-sm font-bold">{title}</p>
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            aria-label={closeLabel}
+            className="border-ink-line-3 hover:bg-ink-line flex size-11 flex-none items-center justify-center rounded-full border transition-colors"
+          >
+            <X aria-hidden="true" className="size-5" />
+          </button>
+        </div>
+
+        {/* Mounted only while open, so closing the dialog stops playback. Vimeo
+            collapses to a compact control set and hides the rest behind an
+            overflow chevron when the player is short, so the frame gets a
+            height floor and the video letterboxes on a phone. */}
+        {open ? (
+          <iframe
+            src={`${PLAYER_ORIGIN}/video/${vimeoId}?${PLAYER_PARAMS}`}
+            title={title}
+            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+            allowFullScreen
+            className="block aspect-video max-h-[calc(88svh-3.5rem)] min-h-[min(340px,58svh)] w-full"
+          />
+        ) : null}
+      </dialog>
     </div>
   );
 }

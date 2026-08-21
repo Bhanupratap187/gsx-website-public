@@ -7,6 +7,7 @@ export const VIDEOS_SECTION = {
   libraryLink: "Explore the GSX video library",
   playFeatured: "Play featured film",
   play: "Play film",
+  closeLabel: "Close video",
 } as const;
 
 // Posters are copied locally — a vimeocdn URL would be a third-party request at

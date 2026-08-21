@@ -27,6 +27,7 @@ export function Videos() {
           <VideoFacade
             title={featured.title}
             label={VIDEOS_SECTION.playFeatured}
+            closeLabel={VIDEOS_SECTION.closeLabel}
             vimeoId={featured.vimeoId}
             poster={featured.poster}
             className="rounded-none"
@@ -55,6 +56,7 @@ export function Videos() {
               <VideoFacade
                 title={video.title}
                 label={VIDEOS_SECTION.play}
+                closeLabel={VIDEOS_SECTION.closeLabel}
                 vimeoId={video.vimeoId}
                 poster={video.poster}
                 size="sm"
